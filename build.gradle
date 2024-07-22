@@ -1,0 +1,81 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+plugins {
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+    id 'checkstyle'
+    id 'org.openapi.generator' version '6.3.0'
+}
+
+group = 'diana.szanto'
+version = '0.0.1-SNAPSHOT'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'build/generated/otp/src/main/java'
+        }
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //Swagger
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.8'
+
+    // Db
+    implementation 'org.liquibase:liquibase-core'
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+task openApiGenerateOtpApi(type: GenerateTask) {
+    generatorName = "spring"
+    inputSpec = "$rootDir/openapi/otp-api.yaml"
+    outputDir = "$buildDir/generated/otp".toString()
+    apiPackage = "diana.szanto.otp.api"
+    modelPackage = "diana.szanto.otp.model"
+    generateApiDocumentation = false
+    generateModelTests = false
+    typeMappings = [
+            "number+double": "BigDecimal"
+    ]
+    configOptions = [
+            useSpringBoot3      : "true",
+            interfaceOnly       : "true",
+            dateLibrary         : "java8",
+            openApiNullable     : "false",
+            skipDefaultApi      : "true",
+            skipDefaultInterface: "true",
+            snapshotVersion     : "true",
+            serializableModel   : "true",
+            useTags             : "true"
+    ]
+}
+
+compileJava.dependsOn openApiGenerateOtpApi

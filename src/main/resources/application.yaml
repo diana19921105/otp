@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: OTP-service
+server:
+  port: 8080
