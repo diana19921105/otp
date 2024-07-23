@@ -65,7 +65,7 @@ public class ReportGenerationService {
             fileUtil.loadTransactionData(customerMap, webShopIncomeDataMap);
             log.debug("Transaction data loaded successfully.");
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(reportOutputFile))) {
+            try (var writer = new BufferedWriter(new FileWriter(reportOutputFile))) {
                 writer.write("NAME;ADDRESS;vásárlás összesen\n");
                 for (var data : customerMap.values()) {
                     writer.write(data.toCsvString() + "\n");
@@ -77,20 +77,19 @@ public class ReportGenerationService {
                 .limit(2)
                 .toList();
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(topCustomersFile))) {
+            try (var writer = new BufferedWriter(new FileWriter(topCustomersFile))) {
                 writer.write("NAME;ADDRESS;vásárlás összesen\n");
                 for (var data : topCustomers) {
                     writer.write(data.toCsvString() + "\n");
                 }
             }
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(webShopReportFile))) {
+            try (var writer = new BufferedWriter(new FileWriter(webShopReportFile))) {
                 writer.write("WEBSHOP;kártyás vásárlások összege;átutalásos vásárlások összege\n");
                 for (var income : webShopIncomeDataMap.values()) {
                     writer.write(income.toCsvString() + "\n");
                 }
             }
-
         } catch (IOException e) {
             log.error("File manipulation failed", e);
             throw new RuntimeException(e);

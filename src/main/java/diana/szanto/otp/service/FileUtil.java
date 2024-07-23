@@ -2,7 +2,6 @@ package diana.szanto.otp.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -34,7 +33,7 @@ public class FileUtil {
     private String customerFile;
 
     public void loadCustomerData(Map<String, CustomerData> customerMap) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
+        try (var reader = new BufferedReader(new FileReader(customerFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 var parts = line.split(";");
@@ -57,7 +56,7 @@ public class FileUtil {
     }
 
     public void loadTransactionData(Map<String, CustomerData> customerMap, Map<String, WebShopIncomeData> webShopIncomeDataMap) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(transactionFile))) {
+        try (var reader = new BufferedReader(new FileReader(transactionFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 var parts = line.split(";");
@@ -144,14 +143,14 @@ public class FileUtil {
         Files.deleteIfExists(Paths.get(outPutFile));
         Files.deleteIfExists(Paths.get(errorLogFile));
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-             BufferedWriter validWriter = new BufferedWriter(new FileWriter(outPutFile));
-             BufferedWriter errorWriter = new BufferedWriter(new FileWriter(errorLogFile, true))) {
+        try (var reader = new BufferedReader(new FileReader(inputFile));
+             var fileWriter = new BufferedWriter(new FileWriter(outPutFile));
+             var errorWriter = new BufferedWriter(new FileWriter(errorLogFile, true))) {
 
             String line;
             while ((line = reader.readLine()) != null) {
                 if (validateInputFile(line, inputFile)) {
-                    validWriter.write(line + System.lineSeparator());
+                    fileWriter.write(line + System.lineSeparator());
                 } else {
                     var errorMessage = "Faulty line: " + line;
                     log.error(errorMessage);
