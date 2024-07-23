@@ -97,27 +97,4 @@ public class ReportGenerationService {
         }
     }
 
-//    private void getWebShopIncomes(Map<String, CustomerData> customerMap) throws IOException {
-//        Map<String, WebShopIncomeData> webShopIncomeDataMap = new HashMap<>();
-//
-//        fileUtil.loadTransactionData(customerMap, webShopIncomeDataMap);
-//        log.debug("Transaction data loaded successfully.");
-//
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(webShopReportFile))) {
-//            writer.write("WEBSHOP;kártyás vásárlások összege;átutalásos vásárlások összege\n");
-//            for (var income : webShopIncomeDataMap.values()) {
-//                writer.write(income.toCsvString() + "\n");
-//            }
-//        }
-//    }
-
-//    private void getReportByCustomers(Map<String, CustomerData> customerMap) throws IOException {
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(reportOutputFile))) {
-//            writer.write("NAME;ADDRESS;vásárlás összesen\n");
-//            for (var data : customerMap.values()) {
-//                writer.write(data.toCsvString() + "\n");
-//            }
-//        }
-//    }
-
 }
