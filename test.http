@@ -1,0 +1,2 @@
+### generate report
+GET http://localhost:8080/generate-report

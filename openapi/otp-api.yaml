@@ -1,0 +1,19 @@
+openapi: 3.0.0
+info:
+  title: OTP api
+  version: 3.0.0
+tags:
+  - name: OTP
+
+paths:
+  /generate-report:
+    get:
+      operationId: generateReport
+      description: Generate report
+      tags:
+        - OTP
+      responses:
+        204:
+          description: Successful operation
+        500:
+          description: Internal server error

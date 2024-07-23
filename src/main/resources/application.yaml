@@ -3,3 +3,22 @@ spring:
     name: OTP-service
 server:
   port: 8080
+
+otp:
+  customer:
+    path: src/main/resources/data/customer.csv
+  payments:
+    path: src/main/resources/data/payments.csv
+  out:
+    customer:
+      path: src/main/resources/data/customer-out.csv
+    payment:
+      path: src/main/resources/data/payment-out.csv
+    top-customers:
+      path: src/main/resources/data/top.csv
+    report:
+      path: src/main/resources/data/report01.csv
+    web-shop-report:
+      path: src/main/resources/data/report02.csv
+  log:
+    path: src/main/resources/data/application.log

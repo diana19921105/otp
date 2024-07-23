@@ -11,6 +11,10 @@ plugins {
 group = 'diana.szanto'
 version = '0.0.1-SNAPSHOT'
 
+checkstyleMain {
+    source = 'src/main/java'
+}
+
 sourceSets {
     main {
         java {
@@ -31,8 +35,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
@@ -41,10 +47,9 @@ dependencies {
     //Swagger
     implementation 'io.springfox:springfox-swagger2:3.0.0'
     implementation 'io.swagger.core.v3:swagger-annotations:2.2.8'
+    implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
 
-    // Db
-    implementation 'org.liquibase:liquibase-core'
-    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+    implementation 'org.apache.commons:commons-csv:1.10.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
